@@ -12,7 +12,6 @@ import java.util.Properties;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-@Ignore
 public class SqlTrackerTest {
 
     private static Connection connection;
@@ -52,7 +51,7 @@ public class SqlTrackerTest {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = new Item("item");
         tracker.add(item);
-        assertThat(tracker.findById(item.getId()), is(item));
+        assertThat(tracker.findById(item.getId()).getName(), is(item.getName()));
     }
 
     @Test
@@ -60,7 +59,7 @@ public class SqlTrackerTest {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = new Item("item");
         tracker.add(item);
-        assertThat(tracker.findById(item.getId()), is(item));
+        assertThat(tracker.findById(item.getId()).getName(), is(item.getName()));
         tracker.delete(item.getId());
         assertThat(tracker.findAll().size(), is(0));
     }
@@ -82,7 +81,7 @@ public class SqlTrackerTest {
         Item itemTwo = new Item("itemTwo");
         tracker.add(item);
         tracker.add(itemTwo);
-        assertThat(tracker.findByName("itemTwo").get(0), is(itemTwo));
+        assertThat(tracker.findByName("itemTwo").get(0).getId(), is(itemTwo.getId()));
     }
 
     @Test
