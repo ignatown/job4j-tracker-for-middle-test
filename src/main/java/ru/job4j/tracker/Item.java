@@ -16,6 +16,7 @@ public class Item {
     private Integer id;
     private String name;
     private LocalDateTime created = LocalDateTime.now();
+    private String description;
 
     public Item() {
     }
@@ -37,6 +38,13 @@ public class Item {
         this.id = id;
         this.name = name;
         this.created = dateTime;
+    }
+
+    public Item(String name, LocalDateTime created, String description) {
+        this.id = id;
+        this.name = name;
+        this.created = created;
+        this.description = description;
     }
 
     public int getId() {
