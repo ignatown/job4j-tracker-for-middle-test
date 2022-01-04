@@ -16,14 +16,7 @@ public class ShowAllAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Store store) {
-        List<Item> items = store.findAll();
-        if (items.size() != 0) {
-            for (Item tmp : items) {
-                out.println(tmp);
-            }
-        } else {
-            out.println("Items not found!");
-        }
+        store.findAllByReact(out::println);
         return true;
     }
 }

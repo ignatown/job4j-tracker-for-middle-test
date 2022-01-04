@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import ru.job4j.react.Observe;
 
 import java.util.List;
 
@@ -90,5 +91,17 @@ public class HbmTracker implements Store, AutoCloseable {
     @Override
     public void close() throws Exception {
         StandardServiceRegistryBuilder.destroy(registry);
+    }
+
+    @Override
+    public void findAllByReact(Observe<Item> observe) {
+        Session session = sf.openSession();
+        session.beginTransaction();
+        List<Item> result = (List<Item>) session.createQuery("from ru.job4j.tracker.Item").list();
+        for (Item item : result) {
+            observe.receive(item);
+        }
+        session.getTransaction().commit();
+        session.close();
     }
 }

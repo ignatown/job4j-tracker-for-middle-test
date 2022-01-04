@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import ru.job4j.react.Observe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +67,12 @@ public class MemTracker implements Store {
 
     @Override
     public void close() throws Exception {
-
     }
 
+    @Override
+    public void findAllByReact(Observe<Item> observe) {
+        for (Item item : items) {
+            observe.receive(item);
+        }
+    }
 }
